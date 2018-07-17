@@ -1,0 +1,35 @@
+<div class="container text-center">
+  <h1>Restful Tasks CRUD</h1>
+  <div *ngFor="let task of tasks">
+    <h3>{{ task['title'] }}</h3>
+    <input (click)="getShowFromService(task['_id'])" class="btn btn-warning" value="edit">
+    <input (click)="getDeleteFromService(task['_id'])" class="btn btn-danger" value="delete">
+  </div>
+  <form (submit)="onSubmit()">
+    <p>{{ newTask | json }}</p>
+    <h2>New Task</h2>
+    <div class="form-group">
+      <p>Title:</p>
+      <input type="text"  name="newTask.title" [(ngModel)]="newTask.title">
+    </div>
+    <div class="form-group">
+      <p>Description:</p>
+      <input type="text" name="newTask.description" [(ngModel)]="newTask.description">
+    </div>
+    <input class="btn btn-secondary" type="submit" value="create">
+  </form>
+  <div *ngIf="editTask">
+    <form (submit)="onEdit()">
+      <h2>Edit Task</h2>
+      <div class="form-group">
+        <p>Title:</p>
+        <p>{{ editTask | json }}</p>
+        <input type="text" name="editTask.title" value="{{ editTask['task']['title'] }}" [(ngModel)]="editTask.task.title">
+      </div>
+      <div class="form-group">
+        <p>Description:</p>
+        <input type="text" name="editTask.description" value="{{ editTask['task']['description'] }}" [(ngModel)]="editTask.task.description">
+      </div>
+      <input class="btn btn-warning" type="submit" value="update">
+    </form>
+  </div>
