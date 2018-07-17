@@ -12,11 +12,9 @@ export class AppComponent implements OnInit {
 	newTask: any;
 	editTask: any;
 
-
 	constructor( private _httpService: HttpService){
 	}
 	ngOnInit(){
-		this.getTasksFromService();
 		this.newTask = { title: "", description: "" }		
 	}
 
@@ -33,8 +31,8 @@ export class AppComponent implements OnInit {
 			console.log(data)
 			this.tasks.push(data)
 			this.newTask = { title: "", description: "" }
-			this.getTasksFromService();
 		})
+		this.getTasksFromService();
 	}
 
 	getShowFromService(id): void{
@@ -51,14 +49,15 @@ export class AppComponent implements OnInit {
 		this._httpService.getUpdate(this.editTask.task).subscribe( data =>{
 			console.log(data)
 		})
+		this.getTasksFromService();
 	}
 
 	getDeleteFromService(id): void{
 		console.log(id)
 		this._httpService.getDelete(id).subscribe( data =>{
 			console.log(data)
-			this.getTasksFromService();
 		})
+		this.getTasksFromService();
 	}
 
 }

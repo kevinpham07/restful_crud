@@ -1,10 +1,14 @@
 <div class="container text-center">
   <h1>Restful Tasks CRUD</h1>
+  <input (click)="getTasksFromService()" class="btn btn-primary" value="get all tasks">
   <div *ngFor="let task of tasks">
     <h3>{{ task['title'] }}</h3>
     <input (click)="getShowFromService(task['_id'])" class="btn btn-warning" value="edit">
     <input (click)="getDeleteFromService(task['_id'])" class="btn btn-danger" value="delete">
   </div>
+  <app-task *ngIf="editTask" [taskToShow]="editTask">
+    <h1>{{ taskToShow }}</h1>
+  </app-task>
   <form (submit)="onSubmit()">
     <p>{{ newTask | json }}</p>
     <h2>New Task</h2>
@@ -23,7 +27,6 @@
       <h2>Edit Task</h2>
       <div class="form-group">
         <p>Title:</p>
-        <p>{{ editTask | json }}</p>
         <input type="text" name="editTask.title" value="{{ editTask['task']['title'] }}" [(ngModel)]="editTask.task.title">
       </div>
       <div class="form-group">
